@@ -57,7 +57,6 @@ export default {
 
       return !!_.find(wins, win => {
         const combination = _.map(win.split(''), n => parseInt(n));
-        console.log('combination', combination, moves);
 
         return _.difference(combination, moves).length === 0;
       });
