@@ -22,19 +22,15 @@ import block from './components/block';
 import win from './components/win';
 import draw from './components/draw';
 
-let state = {
-  grid: _.map(_.range(0, 9), index => {
-    return { index, figure: -1 };
-  }),
-  myTurn: false
-};
-
-const appState = _.cloneDeep(state);
-
 export default {
   name: 'app',
   data() {
-    return appState;
+    return {
+      grid: _.map(_.range(0, 9), index => {
+        return { index, figure: -1 };
+      }),
+      myTurn: false
+    };
   },
 
   components: {
@@ -51,7 +47,7 @@ export default {
         this.grid,
         (result, value, index) => {
           if (value.figure === player) {
-            result.push(index);
+            return [...result, index];
           }
 
           return result;
@@ -85,8 +81,10 @@ export default {
     },
 
     restart() {
-      this.grid = _.cloneDeep(state).grid;
-      this.myTurn = _.cloneDeep(state).myTurn;
+      this.grid = _.map(_.range(0, 9), index => {
+        return { index, figure: -1 };
+      });
+      this.myTurn = 0;
     },
 
     enter(el) {
