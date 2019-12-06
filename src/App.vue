@@ -2,7 +2,7 @@
   <div :class="{ app: true, 'bg-red': myTurn, 'bg-blue': !myTurn }">
     <div class="grid" v-show="true">
       <div v-for="(block, index) in grid" @click="select(index)" :key="index">
-        <block :figure.sync="block.figure" />
+        <block :figure.sync="block.figure"/>
       </div>
     </div>
 
@@ -17,18 +17,26 @@
 </template>
 
 <script>
-import _ from 'lodash';
-import block from './components/block';
-import win from './components/win';
-import draw from './components/draw';
+import _ from "lodash";
+import block from "./components/block";
+import win from "./components/win";
+import draw from "./components/draw";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
-      grid: _.map(_.range(0, 9), index => {
-        return { index, figure: -1 };
-      }),
+      grid: [
+        { index: 0, figure: -1 },
+        { index: 1, figure: -1 },
+        { index: 2, figure: -1 },
+        { index: 3, figure: -1 },
+        { index: 4, figure: -1 },
+        { index: 5, figure: -1 },
+        { index: 6, figure: -1 },
+        { index: 7, figure: -1 },
+        { index: 8, figure: -1 }
+      ],
       myTurn: false
     };
   },
@@ -41,7 +49,7 @@ export default {
 
   computed: {
     winner() {
-      const wins = ['012', '036', '345', '147', '258', '678', '048', '246'];
+      const wins = ["012", "036", "345", "147", "258", "678", "048", "246"];
       const player = this.myTurn ? 0 : 1;
       const moves = _.reduce(
         this.grid,
@@ -56,7 +64,7 @@ export default {
       );
 
       return !!_.find(wins, win => {
-        const combination = _.map(win.split(''), n => parseInt(n));
+        const combination = _.map(win.split(""), n => parseInt(n));
 
         return _.difference(combination, moves).length === 0;
       });
@@ -80,9 +88,17 @@ export default {
     },
 
     restart() {
-      this.grid = _.map(_.range(0, 9), index => {
-        return { index, figure: -1 };
-      });
+      this.grid = [
+        { index: 0, figure: -1 },
+        { index: 1, figure: -1 },
+        { index: 2, figure: -1 },
+        { index: 3, figure: -1 },
+        { index: 4, figure: -1 },
+        { index: 5, figure: -1 },
+        { index: 6, figure: -1 },
+        { index: 7, figure: -1 },
+        { index: 8, figure: -1 }
+      ];
       this.myTurn = 0;
     },
 
@@ -106,7 +122,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url("https://fonts.googleapis.com/css?family=Permanent+Marker");
 
 * {
   box-sizing: border-box;
@@ -118,7 +134,6 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
-  
 }
 
 .bg-red {
@@ -149,7 +164,7 @@ export default {
       display: table-cell;
       width: 100px;
       height: 100px;
-      font: bold 50px/0 'Comic Sans MS', sans-serif;
+      font: bold 50px/0 "Comic Sans MS", sans-serif;
       vertical-align: middle;
       text-align: center;
     }
@@ -188,7 +203,7 @@ export default {
   margin-top: -60px;
   margin-left: -20px;
   padding-top: 140px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
   text-align: center;
 
   h2 {
@@ -208,7 +223,7 @@ export default {
     background-color: darkred;
     border: none;
     border-radius: 10px;
-    font-family: 'Permanent Marker', cursive;
+    font-family: "Permanent Marker", cursive;
     font-size: 20px;
     color: white;
 
