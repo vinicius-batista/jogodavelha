@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div :class="{ app: true, 'bg-red': myTurn, 'bg-blue': !myTurn }">
     <div class="butter-cheese-eggs" v-show="true">
       <div v-for="(block, index) in grid" @click="select(index)" :key="index">
         <block :figure.sync="block.figure" />
@@ -118,7 +118,15 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
+  
+}
+
+.bg-red {
   background-image: linear-gradient(red, orange);
+}
+
+.bg-blue {
+  background-image: linear-gradient(blue, purple);
 }
 
 .butter-cheese-eggs {
