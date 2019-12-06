@@ -1,5 +1,10 @@
 <template>
   <div :class="{ app: true, 'bg-red': myTurn, 'bg-blue': !myTurn }">
+    <div> 
+      <p>Trabalho da disciplina de Computação Gráfica 2019-2</p>
+      <p>Alunos: Vinicius, João Moniz e Euller</p>
+    </div>
+    
     <div class="grid" v-show="true">
       <div v-for="(block, index) in grid" @click="select(index)" :key="index">
         <block :figure.sync="block.figure"/>
