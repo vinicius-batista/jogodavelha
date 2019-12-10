@@ -1,6 +1,6 @@
 <template>
   <div :class="{ app: true, 'bg-red': myTurn, 'bg-blue': !myTurn }">
-    <div> 
+    <div class="about"> 
       <p>Trabalho da disciplina de Computação Gráfica 2019-2</p>
       <p>Alunos: Vinicius, João Moniz e Euller</p>
     </div>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import block from "./components/block";
 import win from "./components/win";
 import draw from "./components/draw";
@@ -56,23 +55,21 @@ export default {
     winner() {
       const wins = ["012", "036", "345", "147", "258", "678", "048", "246"];
       const player = this.myTurn ? 0 : 1;
-      const moves = _.reduce(
-        this.grid,
-        (result, value, index) => {
-          if (value.figure === player) {
-            return [...result, index];
-          }
+      let moves = '';
 
-          return result;
-        },
-        []
-      );
+      for (let i = 0; i < this.grid.length; i++) {
+        if (this.grid[i].figure === player) {
+          moves += i.toString();
+        }
+      }
 
-      return !!_.find(wins, win => {
-        const combination = _.map(win.split(""), n => parseInt(n));
+      for (const win of wins) {     
+        if (moves.includes(win)) {
+          return true;
+        }
+      }
 
-        return _.difference(combination, moves).length === 0;
-      });
+      return false;
     },
     draw() {
       const gridFull = this.grid.every(grid => grid.figure !== -1);
@@ -131,6 +128,18 @@ export default {
 
 * {
   box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.about {
+  color: white;
+  background: #000;
+  max-height: fit-content;
+  height: fit-content;
+  padding: 1em;
 }
 
 .app {
