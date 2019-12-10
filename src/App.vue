@@ -1,10 +1,10 @@
 <template>
   <div :class="{ app: true, 'bg-red': myTurn, 'bg-blue': !myTurn }">
-    <div class="about"> 
+    <div class="about">
       <p>Trabalho da disciplina de Computação Gráfica 2019-2</p>
       <p>Alunos: Vinicius, João Moniz e Euller</p>
     </div>
-    
+
     <div class="grid" v-show="true">
       <div v-for="(block, index) in grid" @click="select(index)" :key="index">
         <block :figure.sync="block.figure"/>
@@ -55,7 +55,7 @@ export default {
     winner() {
       const wins = ["012", "036", "345", "147", "258", "678", "048", "246"];
       const player = this.myTurn ? 0 : 1;
-      let moves = '';
+      let moves = "";
 
       for (let i = 0; i < this.grid.length; i++) {
         if (this.grid[i].figure === player) {
@@ -63,8 +63,12 @@ export default {
         }
       }
 
-      for (const win of wins) {     
-        if (moves.includes(win)) {
+      for (const win of wins) {
+        if (
+          moves.includes(win.charAt(0)) &&
+          moves.includes(win.charAt(1)) &&
+          moves.includes(win.charAt(2))
+        ) {
           return true;
         }
       }
